@@ -22,7 +22,9 @@ var app = app || {};
 			'click .destroy': 'clear',
 			'keypress .edit': 'updateOnEnter',
 			'keydown .edit': 'revertOnEscape',
-			'blur .edit': 'close'
+			'blur .edit': 'close',
+			'click .edit-btn': 'edit',
+			'click .priority-btn': 'togglePriority'
 		},
 
 		// The TodoView listens for changes to its model, re-rendering. Since
@@ -50,6 +52,7 @@ var app = app || {};
 
 			this.$el.html(this.template(this.model.toJSON()));
 			this.$el.toggleClass('completed', this.model.get('completed'));
+			this.$el.toggleClass('priority', this.model.get('priority'));
 			this.toggleVisible();
 			this.$input = this.$('.edit');
 			return this;
@@ -63,6 +66,11 @@ var app = app || {};
 			return this.model.get('completed') ?
 				app.TodoFilter === 'active' :
 				app.TodoFilter === 'completed';
+		},
+
+		// Toggle the `"priority"` state of the model.
+		togglePriority: function () {
+			this.model.togglePriority();
 		},
 
 		// Toggle the `"completed"` state of the model.
