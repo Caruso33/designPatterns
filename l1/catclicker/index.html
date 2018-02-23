@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cat Clicker</title>
+  <style type="text/css">
+    div {
+      margin: 50px 20px;
+    }
+
+    div div {
+      width: 300px;
+      /* margin: 20px 20px; */
+    }
+
+    div img,
+    div span {
+      position: absolute;
+      display: none;
+      left: 20%;
+      right: 20%;
+      top: 20%;
+      /* box-sizing: border-box; */
+    }
+
+    div span {
+      top: 10%;
+      text-align: center;
+    }
+
+    div img {
+      width: calc(60%);
+
+    }
+  </style>
+</head>
+
+<body>
+  <div> </div>
+  <p></p>
+  <script type="text/javascript">
+    var names = ['', 'Hugo', 'Brunhilde', 'Kunibert', 'Miralda', 'Gustav']
+    var div = document.querySelector('div');
+    var divInsides = [];
+
+    for (var i = 1; i < 6; i++) {
+      divInside = document.createElement('div');
+      divInsides.push(divInside);
+      var img = document.createElement('img');
+      var clicks = document.createElement('span');
+      var kitname = document.createElement('p');
+
+      img.setAttribute("src", "kitten" + i + '.jpg');
+      img.setAttribute("alt", "kittens name is " + i);
+
+      kitname.innerHTML = names[i];
+
+      clicks.innerHTML = 0;
+
+      (function(divInside, kitname, img, clicks) {
+
+        img.addEventListener('click', function(e) {
+          clicks.innerHTML = parseInt(clicks.innerHTML) + 1;
+        });
+
+
+        kitname.addEventListener('click', function() {
+          for (var i = 0; i < divInsides.length; i++) {
+            var dis = 'none';
+            var child = divInsides[i].childNodes;
+            if (divInsides[i] == divInside) dis = 'inline';
+            child[1].style.display = dis;
+            child[2].style.display = dis;
+          }
+        })
+      })(divInside, kitname, img, clicks)
+
+      divInside.appendChild(kitname);
+      divInside.appendChild(img);
+      divInside.appendChild(clicks);
+
+      div.appendChild(divInside);
+    }
+  </script>
+</body>
+
+</html>
